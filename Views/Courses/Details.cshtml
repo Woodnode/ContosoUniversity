@@ -1,0 +1,37 @@
+﻿@model ContosoUniversity.Models.Course
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Détails</h1>
+
+<div>
+    <h4>Cours</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd class = "col-sm-10">
+            @* @Html.DisplayFor(model => model.Department.DepartmentID) *@
+            @(Model.Department?.DepartmentID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CourseID" class="btn btn-primary /">Modifier</a> |
+    <a asp-action="Index" class="btn btn-outline-dark">Retour à la liste</a>
+</div>

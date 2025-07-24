@@ -1,0 +1,69 @@
+﻿@model ContosoUniversity.Models.Instructor
+
+@{
+    ViewData["Title"] = "Créer";
+}
+
+<h1>Créer</h1>
+
+<h4>Enseignant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstMidName" class="control-label"></label>
+                <input asp-for="FirstMidName" class="form-control" />
+                <span asp-validation-for="FirstMidName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HireDate" class="control-label"></label>
+                <input asp-for="HireDate" class="form-control" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OfficeAssignment.Location" class="control-label"></label>
+                <input asp-for="OfficeAssignment.Location" class="form-control" />
+                <span asp-validation-for="OfficeAssignment.Location" class="text-danger" />
+            </div>
+
+            @{
+                List<ContosoUniversity.Models.SchoolViewModels.AssignedCourseData> courses = ViewBag.Courses;
+            }
+            <div class="form-group">
+                <label>Choix des cours :</label>
+                <div>
+                    @foreach (var course in courses)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="selectedCourses"
+                                   id="course_@course.CourseID"
+                                   value="@course.CourseID"
+                            @(course.Assigned ? "checked" : "") />
+                            <label class="form-check-label" for="course_@course.CourseID">
+                                @course.Title
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group d-flex align-items-center gap-2 mt-3">
+                <input type="submit" value="Créer" class="btn btn-primary" />
+                <span>|</span>
+                <a asp-action="Index" class="btn btn-outline-dark">Retour à la liste</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
